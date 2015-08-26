@@ -1,0 +1,27 @@
+function factorial(n) {
+  if (n === 0 || n === 1) return 1;
+
+  return n * factorial(n - 1);
+}
+
+function memoize(fundamental, cache) {
+  var cache = cache || {};
+
+  var shell = function (arg) {
+    console.log('iter');
+    if (!cache.hasOwnProperty(arg)) {
+      cache[arg] = fundamental(arg);
+    }
+
+    return cache[arg];
+  };
+
+  return shell;
+
+}
+
+var memFactorial = memoize(factorial, { "О": 1, "1": 1 });
+
+console.log(memFactorial(4));
+console.log(memFactorial(5));
+console.log(memFactorial(6));
