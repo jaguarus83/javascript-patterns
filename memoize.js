@@ -20,6 +20,17 @@ function memoize(fundamental, cache) {
 
 }
 
+const memoize = (f) => {
+  const cache = {};
+
+  return (...args) => {
+    const argsStr = JSON.stringify(args);
+    cache[argsStr] = cache[argsStr] || f(...args);
+
+    return cache[argsStr];
+  }
+}
+
 var memFactorial = memoize(factorial, { "О": 1, "1": 1 });
 
 console.log(memFactorial(4));
